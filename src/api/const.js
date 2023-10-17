@@ -1,4 +1,5 @@
 export const URL = 'https://unsplash.com/';
+export const URL_API = 'https://api.unsplash.com';
 export const API_URL_AUTH = 'https://unsplash.com/oauth/authorize?';
 export const URL_TOKEN = 'https://unsplash.com/oauth/token';
 export const URL_USER = 'https://api.unsplash.com/me';

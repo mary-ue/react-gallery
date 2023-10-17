@@ -11,6 +11,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState, 
   reducers: {
+    setUserDataFromLS: (state, action) => {
+      state.data = action.payload;
+    },
     removeUserData: (state) => {
       state.data = {};
     },
@@ -26,7 +29,9 @@ export const userSlice = createSlice({
           state.loading = false;
           return;
         }
+        state.loading = false;
         state.data = action.payload;
+        localStorage.setItem('userInfo', JSON.stringify(action.payload));
       })
       // .addCase(userRequestAsync.rejected, (state, action) => {
       //   state.loading = false;
@@ -46,6 +51,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { removeUserData } = userSlice.actions;
+export const { removeUserData, setUserDataFromLS } = userSlice.actions;
 
 export default userSlice.reducer;

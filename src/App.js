@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { setTokenFromLS } from './store/token/tokenSlice';
 import { userRequestAsync } from './store/user/userAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { setUserDataFromLS } from './store/user/userSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,8 +17,14 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('bearer')) {
       dispatch(setTokenFromLS(localStorage.getItem('bearer')));
-      dispatch(userRequestAsync(localStorage.getItem('bearer')));
-    } else if (token) {
+    } 
+
+    if (localStorage.getItem('userInfo') && localStorage.getItem('bearer')) {
+      const userInfoString = localStorage.getItem('userInfo');
+      const userInfo = JSON.parse(userInfoString);
+
+      dispatch(setUserDataFromLS(userInfo)); 
+    } else {
       dispatch(userRequestAsync(token));
     }
   }, [dispatch, token])

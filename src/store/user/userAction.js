@@ -17,7 +17,7 @@ export const userRequestAsync = createAsyncThunk('user/fetch',
       }
       return response.json();
     }).then(data => {
-      console.log('user data: ', data);
+      // console.log('user data: ', data);
       const name = data.name;
       const img = data.profile_image.medium;
       return { name, img };

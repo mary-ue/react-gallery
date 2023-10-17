@@ -30,6 +30,7 @@ export const tokenSlice = createSlice({
           return;
         }
         state.token = action.payload;
+        state.loading = false;
         localStorage.setItem('bearer', action.payload);
       })
       .addCase(tokenRequestAsync.rejected, (state, action) => {
