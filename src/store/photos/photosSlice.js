@@ -24,9 +24,10 @@ export const photosSlice = createSlice({
           return;
         }
         state.loading = false;
-        // state.data = state.data.length ?
-        //   [...state.data, ...action.payload.data] : [...action.payload.data];
-        state.photos = action.payload;
+        // state.photos = [...state.photos, ...action.payload];
+        state.photos = state.photos.length ?
+          [...state.photos, ...action.payload] : [...action.payload];
+        // state.photos = action.payload;
         state.page += 1;
       })
       .addCase(photosRequestAsync.rejected, (state, action) => {

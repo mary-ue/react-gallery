@@ -21,6 +21,7 @@ export const Auth = () => {
     setShowLogoutBtn(false);
     localStorage.removeItem('bearer');
     dispatch(removeToken());
+    localStorage.removeItem('userInfo');
     dispatch(removeUserData());
   };
 

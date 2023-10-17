@@ -1,0 +1,12 @@
+.button {
+  position: relative;
+}
+
+.likesCount {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-size: 12px;
+  color: #ffffff;
+}
