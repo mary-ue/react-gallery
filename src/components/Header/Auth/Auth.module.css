@@ -1,9 +1,40 @@
+.authWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
+.userName {
+  margin-right: 7px;
+  color: #ffffff;
+}
+
+.userImg {
+  border-radius: 10px;
+  border: 2px solid #292D32;
+}
 
 .loginLink {
   display: block;
   width: 34px;
   height: 34px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 2px solid #292D32;
+}
+
+.noPhoto {
+  width: 36px;
+  height: 36px;
+  background-color: #fff;
+  border: 2px solid #292D32;
+}
+
+.logoutBtn {
+  position: absolute;
+  right: -12px;
+  top: 36px;
+  padding: 5px;
   background-color: #fff;
   border-radius: 10px;
   border: 2px solid #292D32;

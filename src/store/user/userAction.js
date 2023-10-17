@@ -18,7 +18,9 @@ export const userRequestAsync = createAsyncThunk('user/fetch',
       return response.json();
     }).then(data => {
       console.log('user data: ', data);
-      return data;
+      const name = data.name;
+      const img = data.profile_image.medium;
+      return { name, img };
     })
     .catch(error => {
       console.error('Ошибка при получении токена доступа:', error);

@@ -13,7 +13,10 @@ export const tokenSlice = createSlice({
   reducers: {
     setTokenFromLS: (state, action) => {
       state.token = action.payload;
-    }
+    },
+    removeToken: (state) => {
+      state.token = '';
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,6 +40,6 @@ export const tokenSlice = createSlice({
   }
 });
 
-export const { setTokenFromLS } = tokenSlice.actions;
+export const { setTokenFromLS, removeToken } = tokenSlice.actions;
 
 export default tokenSlice.reducer;
