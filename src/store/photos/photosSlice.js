@@ -11,7 +11,11 @@ const initialState = {
 export const photosSlice = createSlice({
   name: 'photos',
   initialState,
-  reducers: {},
+  reducers: {
+    removePhotosData: (state) => {
+      state.photos = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(photosRequestAsync.pending, (state) => {
@@ -37,6 +41,8 @@ export const photosSlice = createSlice({
       })
   }
 })
+
+export const { removePhotosData } = photosSlice.actions;
 
 export default photosSlice.reducer;
 

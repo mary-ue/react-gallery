@@ -1,18 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { URL_API } from "../../api/const";
+import { ACCESS_KEY, URL_API } from "../../api/const";
 
 export const photosRequestAsync = createAsyncThunk('photos/fetch', 
   async (data, {getState}) => {
 
     const {token, page} = data;
 
-    const URL = `${URL_API}/photos?page=${page}&per_page=30`;
+    const URL = `${URL_API}/photos?page=${page}&per_page=30&client_id=${ACCESS_KEY}`;
+    const headers = token
+    ? { Authorization: `Bearer ${token}` }
+    : {};
 
-    return fetch(URL, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(response => {
+    return fetch(URL, { headers })
+    .then(response => {
       // if (!response.ok) {
       //   throw new Error(`Ошибка HTTP: ${response.status}`);
       // }

@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Masonry from 'react-masonry-css';
-import { photosRequestAsync } from "../../store/photos/photosAction";
+import { photosRequestAsync } from '../../store/photos/photosAction';
 import s from './Main.module.css';
-import { PhotoCard } from "../PhotoCard/PhotoCard";
-import { Loader } from "../UI/Loader/Loader";
+import { PhotoCard } from '../PhotoCard/PhotoCard';
+import { Loader } from '../UI/Loader/Loader';
 
 export const Main = () => {
   const dispatch = useDispatch();
-  const [isLoadingFirst, setIsLoadingFirst] = useState(false);
-  const token = useSelector(state => state.tokenReducer.token);
-  const photos = useSelector(state => state.photosReducer.photos);
-  const loading = useSelector(state => state.photosReducer.loading);
-  const page = useSelector(state => state.photosReducer.page);
+  // const [isLoadingFirst, setIsLoadingFirst] = useState(false);
+  const token = useSelector((state) => state.tokenReducer.token);
+  const photos = useSelector((state) => state.photosReducer.photos);
+  const loading = useSelector((state) => state.photosReducer.loading);
+  const page = useSelector((state) => state.photosReducer.page);
   const endList = useRef(null);
   console.log(photos);
 
@@ -22,52 +22,66 @@ export const Main = () => {
     700: 2,
     500: 1,
   };
-  
+
   useEffect(() => {
     if (token) {
-      dispatch(photosRequestAsync({token, page}));
-      setIsLoadingFirst(true);
+      dispatch(photosRequestAsync({ token, page }));
+    //   setIsLoadingFirst(true);
+    // } else {
+    //   setIsLoadingFirst(true);
     }
   }, [dispatch, token]);
 
   useEffect(() => {
     if (endList.current) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries && entries.length > 0 &&
-          entries[0].isIntersecting && endList.current && !loading) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (
+            entries &&
+            entries.length > 0 &&
+            entries[0].isIntersecting &&
+            endList.current &&
+            !loading
+          ) {
             dispatch((dispatch, getState) => {
               const currentPage = getState().photosReducer.page;
               dispatch(photosRequestAsync({ token, page: currentPage + 1 }));
             });
+          }
+        },
+        {
+          rootMargin: '100px',
         }
-      }, {
-        rootMargin: '100px',
-      });
+      );
       observer.observe(endList.current);
 
       return () => {
         observer.disconnect();
       };
     }
-
   }, [endList.current, dispatch, loading]);
 
+  useEffect(() => {
+    console.log(page);
+  }, [page])
+
   return (
-    (loading && isLoadingFirst) ? (
-      <Loader size={20} />
-    ) : (
-      <Masonry
-      breakpointCols={breakpointColumnsObj}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
-    >
-      {photos && photos?.map((photo) => (
-        <PhotoCard key={photo.id} photo={photo} />
-      ))}
-      {photos && (
-        <div ref={endList} className={s.end}></div>
+    <>
+      {loading && (page === 1) ? (
+        <Loader size={20} />
+      ) : (
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {photos &&
+            photos?.map((photo) => <PhotoCard key={photo.id} photo={photo} />)}
+        </Masonry>
       )}
-    </Masonry>
-    )
+      <div ref={endList} className={s.end}>
+        last
+      </div>
+    </>
   );
 };

@@ -6,6 +6,7 @@ import { ReactComponent as NoPhoto } from './img/avatar.svg';
 import { useState } from 'react';
 import { removeToken } from '../../../store/token/tokenSlice';
 import { removeUserData } from '../../../store/user/userSlice';
+import { removePhotosData } from '../../../store/photos/photosSlice';
 
 // http://localhost:3000/?code=nHj_8ejuG-PPW2whnajpKDSamzCvopO2V5ZfiN7bMe4
 
@@ -22,6 +23,7 @@ export const Auth = () => {
     dispatch(removeToken());
     localStorage.removeItem('userInfo');
     dispatch(removeUserData());
+    dispatch(removePhotosData());
   };
 
   return (
@@ -58,7 +60,7 @@ export const Auth = () => {
             }
           </>
         ) : (
-          <a className={s.loginLink} href={urlAuth}>
+          <a className={s.loginLink} href={urlAuth} onClick={() => dispatch(removePhotosData())}>
             <Login className={s.loginSvg} width={32} height={32} />
           </a>
         )
