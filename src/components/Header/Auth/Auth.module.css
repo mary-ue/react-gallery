@@ -9,9 +9,16 @@
   color: #ffffff;
 }
 
+.userBtn {
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
 .userImg {
   border-radius: 10px;
-  border: 2px solid #292D32;
+  box-shadow: 0 0 2px #292D32;
 }
 
 .loginLink {
@@ -23,12 +30,12 @@
   border: 2px solid #292D32;
 }
 
-.noPhoto {
+/* .noPhoto {
   width: 36px;
   height: 36px;
   background-color: #fff;
   border: 2px solid #292D32;
-}
+} */
 
 .logoutBtn {
   position: absolute;

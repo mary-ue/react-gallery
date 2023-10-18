@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Masonry from 'react-masonry-css';
 import { photosRequestAsync } from "../../store/photos/photosAction";
 import s from './Main.module.css';
 import { PhotoCard } from "../PhotoCard/PhotoCard";
+import { Loader } from "../UI/Loader/Loader";
 
 export const Main = () => {
   const dispatch = useDispatch();
+  const [isLoadingFirst, setIsLoadingFirst] = useState(false);
   const token = useSelector(state => state.tokenReducer.token);
   const photos = useSelector(state => state.photosReducer.photos);
   const loading = useSelector(state => state.photosReducer.loading);
@@ -24,6 +26,7 @@ export const Main = () => {
   useEffect(() => {
     if (token) {
       dispatch(photosRequestAsync({token, page}));
+      setIsLoadingFirst(true);
     }
   }, [dispatch, token]);
 
@@ -32,8 +35,6 @@ export const Main = () => {
       const observer = new IntersectionObserver((entries) => {
         if (entries && entries.length > 0 &&
           entries[0].isIntersecting && endList.current && !loading) {
-            console.log(page);
-            console.log(loading);
             dispatch((dispatch, getState) => {
               const currentPage = getState().photosReducer.page;
               dispatch(photosRequestAsync({ token, page: currentPage + 1 }));
@@ -49,10 +50,13 @@ export const Main = () => {
       };
     }
 
-  }, [endList.current, dispatch]);
+  }, [endList.current, dispatch, loading]);
 
   return (
-    <Masonry
+    (loading && isLoadingFirst) ? (
+      <Loader size={20} />
+    ) : (
+      <Masonry
       breakpointCols={breakpointColumnsObj}
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
@@ -64,5 +68,6 @@ export const Main = () => {
         <div ref={endList} className={s.end}></div>
       )}
     </Masonry>
+    )
   );
 };

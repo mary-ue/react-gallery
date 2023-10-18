@@ -17,7 +17,6 @@ export const Auth = () => {
   const dispatch = useDispatch();
 
   const handleLogoutBtn = () => {
-    // console.log('Logout');
     setShowLogoutBtn(false);
     localStorage.removeItem('bearer');
     dispatch(removeToken());
