@@ -34,7 +34,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Root />}>
           <Route index element={<Main />} />
-          <Route path='photo/:id' element={<PhotoPage />} />
+          <Route path='photos/:id' element={<PhotoPage />} />
           <Route path='auth/*' element={<AuthRequest />} />
           <Route path='*' element={<ErrorPage />} />
         </Route>

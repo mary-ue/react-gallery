@@ -19,9 +19,9 @@ export const tokenRequestAsync = createAsyncThunk('token/fetch',
     },
     body: body,
   }).then(response => {
-    if (!response.ok) {
-      throw new Error(`Ошибка HTTP: ${response.status}`);
-    }
+    // if (!response.ok) {
+    //   throw new Error(`Ошибка HTTP: ${response.status}`);
+    // }
     return response.json();
   }).then(data => {
     console.log('access_token: ', data.access_token);

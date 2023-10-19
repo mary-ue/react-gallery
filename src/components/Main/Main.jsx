@@ -23,14 +23,11 @@ export const Main = () => {
     500: 1,
   };
 
-  useEffect(() => {
-    if (token) {
-      dispatch(photosRequestAsync({ token, page }));
-    //   setIsLoadingFirst(true);
-    // } else {
-    //   setIsLoadingFirst(true);
-    }
-  }, [dispatch, token]);
+  // useEffect(() => {
+  //   if (token && page === 1) {
+  //     dispatch(photosRequestAsync({ token, page }));
+  //   }
+  // }, [dispatch, token, page]);
 
   useEffect(() => {
     if (endList.current) {
@@ -79,9 +76,7 @@ export const Main = () => {
             photos?.map((photo) => <PhotoCard key={photo.id} photo={photo} />)}
         </Masonry>
       )}
-      <div ref={endList} className={s.end}>
-        last
-      </div>
+      <div ref={endList} className={s.end}></div>
     </>
   );
 };

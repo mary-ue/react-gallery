@@ -17,7 +17,7 @@ export const PhotoCard = ({photo}) => {
 
   return (
     <div className={s.photoCard} target="_blank" rel="noopener noreferrer">
-      <Link to={`photo/${id}`}>
+      <Link to={`photos/${id}`}>
         {urls && urls?.small && (
           <img src={urls.small} alt={alt_description} className={s.photoCardImage} />
         )}
