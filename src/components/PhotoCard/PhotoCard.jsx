@@ -2,9 +2,12 @@ import { Link } from 'react-router-dom';
 import formatDate from '../../utils/formateDate';
 import s from './PhotoCard.module.css';
 import { Like } from './Like/Like';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setLikesCount, setUserLikes } from '../../store/likes/likesSlice';
 
 export const PhotoCard = ({photo}) => {
-  
+  const dispatch = useDispatch();
   const {
     id,
     user,
@@ -13,7 +16,15 @@ export const PhotoCard = ({photo}) => {
     alt_description,
     created_at,
     likes,
+    liked_by_user: likedByUser,
   } = photo;
+
+  // useEffect(() => {
+  //   if (photo) {
+  //     dispatch(setLikesCount(likes));
+  //     dispatch(setUserLikes(likedByUser));
+  //   }
+  // }, [photo, dispatch]);
 
   return (
     <div className={s.photoCard} target="_blank" rel="noopener noreferrer">
@@ -32,7 +43,7 @@ export const PhotoCard = ({photo}) => {
         </div>
         <div className={s.photoCardInfo}>
           <span className={s.photoCardDate}>{formatDate(created_at)}</span>
-          <Like likes={likes} />
+          <Like id={id} likes={likes} likesByUser={likedByUser} />
         </div>
       </div>
     </div>

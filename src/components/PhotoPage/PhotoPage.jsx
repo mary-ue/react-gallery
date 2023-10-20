@@ -6,6 +6,7 @@ import { removeSinglePhotoData } from '../../store/singlePhoto/singlePhotoSlice'
 import s from './PhotoPage.module.css';
 import { Like } from '../PhotoCard/Like/Like';
 import { Loader } from '../UI/Loader/Loader';
+import { removeLikesCount, removeUserLikes, setLikesCount, setUserLikes } from '../../store/likes/likesSlice';
 
 export const PhotoPage = () => {
   const { id } = useParams();
@@ -17,12 +18,20 @@ export const PhotoPage = () => {
 
   useEffect(() => {
     dispatch(singlePhotoRequestAsync(id));
-    console.log();
 
     return () => {
       dispatch(removeSinglePhotoData());
     };
   }, [id, dispatch]);
+
+  useEffect(() => {
+    if (photoData) {
+      const likedByUser = photoData.liked_by_user;
+      const likes = photoData.likes;
+      dispatch(setLikesCount(likes));
+      dispatch(setUserLikes(likedByUser));
+    }
+  }, [photoData, dispatch]);
 
   return (
     loading ? (
@@ -47,7 +56,7 @@ export const PhotoPage = () => {
                 {new Date(photoData?.created_at).toLocaleDateString()}
               </p>
             </div>
-            <Like likes={photoData?.likes} />
+            <Like id={id} />
           </div>
           <button 
             className={s.backButton}

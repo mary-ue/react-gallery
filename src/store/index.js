@@ -3,6 +3,7 @@ import tokenReducer from './token/tokenSlice';
 import userReducer from './user/userSlice';
 import photosReducer from './photos/photosSlice';
 import singlePhotoReducer from './singlePhoto/singlePhotoSlice';
+import likesReducer from './likes/likesSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     userReducer,
     photosReducer,
     singlePhotoReducer,
+    likesReducer,
   }
 });
 
