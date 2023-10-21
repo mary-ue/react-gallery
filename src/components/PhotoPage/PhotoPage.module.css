@@ -28,6 +28,13 @@
   color: #0366d6;
 }
 
+.likePlaceholder {
+  width: 42px;
+  height: 42px;
+  background-color: transparent;
+  pointer-events: none;
+}
+
 .likeButton {
   background-color: #0366d6;
   color: #fff;

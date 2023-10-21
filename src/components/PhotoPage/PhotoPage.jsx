@@ -7,6 +7,8 @@ import s from './PhotoPage.module.css';
 import { Like } from '../PhotoCard/Like/Like';
 import { Loader } from '../UI/Loader/Loader';
 import { removeLikesCount, removeUserLikes, setLikesCount, setUserLikes } from '../../store/likes/likesSlice';
+import { likesRequestAsync, unlikesRequestAsync } from '../../store/likes/likesAction';
+import { removePhotosData } from '../../store/photos/photosSlice';
 
 export const PhotoPage = () => {
   const { id } = useParams();
@@ -15,6 +17,21 @@ export const PhotoPage = () => {
   const photoData = useSelector((state) => state.singlePhotoReducer.photoData);
   const loading = useSelector((state) => state.singlePhotoReducer.loading);
   console.log(photoData);
+
+  let likedByUser = useSelector(state => state.likesReducer.userLiked);
+  let likes = useSelector(state => state.likesReducer.likes);
+
+  const handleLikeClick = () => {
+    if (likedByUser) {
+      dispatch(unlikesRequestAsync(id));
+      // likes -= 1;
+      console.log('unlike!');
+    } else {
+      dispatch(likesRequestAsync(id));
+      // likes += 1;
+      console.log('like!');
+    }
+  };
 
   useEffect(() => {
     dispatch(singlePhotoRequestAsync(id));
@@ -25,13 +42,33 @@ export const PhotoPage = () => {
   }, [id, dispatch]);
 
   useEffect(() => {
-    if (photoData) {
-      const likedByUser = photoData.liked_by_user;
-      const likes = photoData.likes;
-      dispatch(setLikesCount(likes));
-      dispatch(setUserLikes(likedByUser));
+    if (Object.keys(photoData).length > 0) {
+      const newLikedByUser = photoData.liked_by_user;
+      const newLikes = photoData.likes;
+      dispatch(setLikesCount(newLikes));
+      dispatch(setUserLikes(newLikedByUser));
     }
   }, [photoData, dispatch]);
+
+  // useEffect(() => {
+  //   if (photoData) {
+  //     const newLikedByUser = photoData.liked_by_user;
+  //     const newLikes = photoData.likes;
+
+  //     if (likedByUser !== newLikedByUser) {
+  //       dispatch(setUserLikes(likedByUser));
+  //     }
+
+  //     if (likes !== newLikes) {
+  //       dispatch(setLikesCount(likes));
+  //     }
+  //   }
+  // }, [photoData, dispatch, likedByUser]);
+
+  // useEffect(() => {
+  //   console.log(likes);
+  //   console.log(likedByUser);
+  // }, [likedByUser, likes]);
 
   return (
     loading ? (
@@ -56,7 +93,18 @@ export const PhotoPage = () => {
                 {new Date(photoData?.created_at).toLocaleDateString()}
               </p>
             </div>
-            <Like id={id} />
+            {
+              (Object.keys(photoData).length > 0) ? (
+                <Like
+                  handleLikeClick={handleLikeClick}
+                  id={id}
+                  likes={likes}
+                  likedByUser={likedByUser}
+                />
+              ) : (
+                <div className={s.likePlaceholder}></div>
+              )
+            }
           </div>
           <button 
             className={s.backButton}

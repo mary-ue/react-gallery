@@ -10,3 +10,11 @@
   font-size: 12px;
   color: #ffffff;
 }
+
+.likesIcon {
+  color: black;
+}
+
+.likesIcon.liked {
+  color: red;
+}

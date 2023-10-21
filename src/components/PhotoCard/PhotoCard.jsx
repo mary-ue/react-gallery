@@ -3,8 +3,9 @@ import formatDate from '../../utils/formateDate';
 import s from './PhotoCard.module.css';
 import { Like } from './Like/Like';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLikesCount, setUserLikes } from '../../store/likes/likesSlice';
+import { likesRequestAsync, unlikesRequestAsync } from '../../store/likes/likesAction';
 
 export const PhotoCard = ({photo}) => {
   const dispatch = useDispatch();
@@ -15,16 +16,29 @@ export const PhotoCard = ({photo}) => {
     urls,
     alt_description,
     created_at,
-    likes,
-    liked_by_user: likedByUser,
   } = photo;
 
-  // useEffect(() => {
-  //   if (photo) {
-  //     dispatch(setLikesCount(likes));
-  //     dispatch(setUserLikes(likedByUser));
-  //   }
-  // }, [photo, dispatch]);
+  let { likes, liked_by_user: likedByUser } = photo;
+
+  let likedByUserState = useSelector(state => state.likesReducer.userLiked);
+  let likesState = useSelector(state => state.likesReducer.likes);
+
+  const handleLikeClick = () => {
+    if (likedByUser) {
+      dispatch(unlikesRequestAsync(id));
+      // likes -= 1;
+      console.log('unlike!');
+    } else {
+      dispatch(likesRequestAsync(id));
+      // likes += 1;
+      console.log('like!');
+    }
+  };
+
+  useEffect(() => {
+    likes = likesState;
+    likedByUser = likedByUserState;
+  }, [likesState]);
 
   return (
     <div className={s.photoCard} target="_blank" rel="noopener noreferrer">
@@ -43,7 +57,7 @@ export const PhotoCard = ({photo}) => {
         </div>
         <div className={s.photoCardInfo}>
           <span className={s.photoCardDate}>{formatDate(created_at)}</span>
-          <Like id={id} likes={likes} likesByUser={likedByUser} />
+          <Like id={id} likes={likes} likesByUser={likedByUser} handleLikeClick={handleLikeClick} />
         </div>
       </div>
     </div>
