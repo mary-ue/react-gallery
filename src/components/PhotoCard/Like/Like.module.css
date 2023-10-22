@@ -2,6 +2,11 @@
   position: relative;
 }
 
+.button:disabled {
+  cursor: none;
+  pointer-events: none;
+}
+
 .likesCount {
   position: absolute;
   top: 50%;

@@ -20,29 +20,9 @@ export const PhotoCard = ({photo}) => {
 
   let { likes, liked_by_user: likedByUser } = photo;
 
-  let likedByUserState = useSelector(state => state.likesReducer.userLiked);
-  let likesState = useSelector(state => state.likesReducer.likes);
-
-  const handleLikeClick = () => {
-    if (likedByUser) {
-      dispatch(unlikesRequestAsync(id));
-      // likes -= 1;
-      console.log('unlike!');
-    } else {
-      dispatch(likesRequestAsync(id));
-      // likes += 1;
-      console.log('like!');
-    }
-  };
-
-  useEffect(() => {
-    likes = likesState;
-    likedByUser = likedByUserState;
-  }, [likesState]);
-
   return (
     <div className={s.photoCard} target="_blank" rel="noopener noreferrer">
-      <Link to={`photos/${id}`}>
+      <Link to={`photos/${id}`} >
         {urls && urls?.small && (
           <img src={urls.small} alt={alt_description} className={s.photoCardImage} />
         )}
@@ -57,7 +37,7 @@ export const PhotoCard = ({photo}) => {
         </div>
         <div className={s.photoCardInfo}>
           <span className={s.photoCardDate}>{formatDate(created_at)}</span>
-          <Like id={id} likes={likes} likesByUser={likedByUser} handleLikeClick={handleLikeClick} />
+          <Like id={id} likes={likes} likedByUser={likedByUser} />
         </div>
       </div>
     </div>

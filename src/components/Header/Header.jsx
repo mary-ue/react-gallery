@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container } from "../../Layout/Container/Container";
 import s from './Header.module.css';
 import { ReactComponent as ArrowBack } from './img/back.svg';
@@ -16,6 +16,7 @@ export const Header = () => {
           <button onClick={goBack}>
             <ArrowBack className={s.svg} width={40} height={40} />
           </button>
+          <Link className={s.name} to="/">React Study Project</Link>
           <Auth />
         </div>
       </Container>

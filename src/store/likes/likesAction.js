@@ -3,7 +3,7 @@ import { URL_API } from '../../api/const';
 
 export const likesRequestAsync = createAsyncThunk(
   'likes/fetch',
-  async (photoId, { getState }) => {
+  async (photoId, { getState, dispatch }) => {
     const token = getState().tokenReducer.token;
 
     if (!token) return;
@@ -22,6 +22,7 @@ export const likesRequestAsync = createAsyncThunk(
       })
       .then(data => {
         console.log('Likes data: ', data);
+        // dispatch(singlePhotoRequestAsync(photoId));
         return data;
       })
       .catch((error) => {

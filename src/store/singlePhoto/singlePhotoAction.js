@@ -4,17 +4,20 @@ import { ACCESS_KEY, URL_API } from "../../api/const";
 export const singlePhotoRequestAsync = createAsyncThunk('singlePhoto/fetch', 
   async (id, {getState}) => {
 
-    const URL = `${URL_API}/photos/${id}`;
+    const uniqueParam = `timestamp=${Date.now()}`;
+    const URL = `${URL_API}/photos/${id}?${uniqueParam}`;
 
     return fetch(URL, {
       headers: {
-        Authorization: `Client-ID ${ACCESS_KEY}`
+        Authorization: `Client-ID ${ACCESS_KEY}`,
+        // 'Cache-Control': 'no-cache',
       }
     })
     .then(response => {
       return response.json();
     })
     .then(data => {
+      console.log('singlePhotoRequestAsync: ', data);
       return data;
     })
     .catch(error => {

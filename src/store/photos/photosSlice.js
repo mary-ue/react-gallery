@@ -15,6 +15,22 @@ export const photosSlice = createSlice({
     removePhotosData: (state) => {
       state.photos = [];
     },
+    likePhoto: (state, action) => {
+      const { photoId } = action.payload;
+      const likedPhotoIndex = state.photos.findIndex((photo) => photo.id === photoId);
+
+      if (likedPhotoIndex !== -1) {
+        state.photos[likedPhotoIndex].likes += 1;
+      }
+    },
+    unlikePhoto: (state, action) => {
+      const { photoId } = action.payload;
+      const likedPhotoIndex = state.photos.findIndex((photo) => photo.id === photoId);
+
+      if (likedPhotoIndex !== -1) {
+        state.photos[likedPhotoIndex].likes -= 1;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -42,7 +58,7 @@ export const photosSlice = createSlice({
   }
 })
 
-export const { removePhotosData } = photosSlice.actions;
+export const { removePhotosData, likePhoto, unlikePhoto } = photosSlice.actions;
 
 export default photosSlice.reducer;
 
