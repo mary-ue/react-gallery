@@ -17,7 +17,7 @@ export const singlePhotoRequestAsync = createAsyncThunk('singlePhoto/fetch',
       return response.json();
     })
     .then(data => {
-      console.log('singlePhotoRequestAsync: ', data);
+      // console.log('singlePhotoRequestAsync: ', data);
       return data;
     })
     .catch(error => {

@@ -14,7 +14,7 @@ export const Main = () => {
   const loading = useSelector((state) => state.photosReducer.loading);
   const page = useSelector((state) => state.photosReducer.page);
   const endList = useRef(null);
-  console.log(photos);
+  // console.log(photos);
 
   const breakpointColumnsObj = {
     default: 4,
