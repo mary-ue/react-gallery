@@ -5,6 +5,6 @@ export const URL_TOKEN = 'https://unsplash.com/oauth/token';
 export const URL_USER = 'https://api.unsplash.com/me';
 export const ACCESS_KEY = '28LXPXcUCDaYD4JNlcPSagua09BZFMHVsU8nAuXeYFI';
 export const SECRET_KEY = 'jmUNW0c-Ez8Nqs5b29KD8L0vaRTYIJKDMNEDmovgBRE';
-export const REDIRECT_URI = 'http://localhost:3000/auth/';
+export const REDIRECT_URI = 'https://react-gallery-ashy.vercel.app/auth/';
 export const RESPONSE_TYPE = 'code';
 export const SCOPE = 'public read_user read_photos write_likes';
