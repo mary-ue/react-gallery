@@ -26,10 +26,16 @@ export const PhotoPage = () => {
       dispatch(unlikesRequestAsync(id));
       console.log('unlike!');
       dispatch(unlikePhoto({id}));
+      
+      document.cookie = `liked_photo_${id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/photos/${id};`;
     } else {
       dispatch(likesRequestAsync(id));
       console.log('like!');
       dispatch(likePhoto({id}));
+
+      const expirationDate = new Date();
+      expirationDate.setTime(expirationDate.getTime() + 6 * 60 * 60 * 1000); // 6 часов
+      document.cookie = `liked_photo_${id}=true; expires=${expirationDate.toUTCString()}; path=/photos/${id}`;
     }
   };
 
@@ -47,11 +53,14 @@ export const PhotoPage = () => {
 
   useEffect(() => {
     if (Object.keys(photoData).length > 0) {
-      const newLikedByUser = photoItem?.liked_by_user || photoData.liked_by_user;
+      const likedCookie = document.cookie.replace(new RegExp(`(?:(?:^|.*;\\s*)liked_photo_${id}\\s*\\=\\s*([^;]*).*$)|^.*$`), '$1');
+      const newLikedByUser = (likedCookie === 'true') || photoData.liked_by_user;
       const newLikes = photoData.likes;
       if (likes == 0) {
         dispatch(setLikesCount(newLikes));
+        console.log(newLikes);
         dispatch(setUserLikes(newLikedByUser));
+        console.log(newLikedByUser);
       }
     }
   }, [photoData, dispatch]);
