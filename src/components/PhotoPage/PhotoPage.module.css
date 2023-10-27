@@ -5,7 +5,12 @@
 
 .photo {
   width: 100%;
+  min-height: 220px;
   height: auto;
+  background-image: url('../../assets/Spinner.svg');
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .photoDetails {

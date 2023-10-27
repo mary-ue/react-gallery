@@ -7,9 +7,16 @@
 }
 
 .headerWrapper {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: 'button name auth';
+  gap: 15px;
   align-items: center;
+}
+
+.button {
+  grid-area: button;
+  min-width: min-content;
 }
 
 .svg {
@@ -17,7 +24,20 @@
 }
 
 .name {
+  grid-area: name;
+  justify-self: center;
   color: #fff;
   cursor: pointer;
 }
+
+/* @media (max-width: 1200px) {
+  .headerWrapper {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 'button name' 'auth auth';
+  }
+
+  .name {
+    justify-self: end;
+  }
+} */
 

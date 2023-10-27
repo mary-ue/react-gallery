@@ -1,4 +1,6 @@
 .authWrapper {
+  grid-area: auth;
+  justify-self: end;
   position: relative;
   display: flex;
   align-items: center;
@@ -46,3 +48,9 @@
   border-radius: 10px;
   border: 2px solid #292D32;
 }
+
+/* @media (max-width: 1200px) {
+  .authWrapper {
+    justify-self: center;
+  }
+} */

@@ -58,9 +58,9 @@ export const PhotoPage = () => {
       const newLikes = photoData.likes;
       if (likes == 0) {
         dispatch(setLikesCount(newLikes));
-        console.log(newLikes);
+        // console.log(newLikes);
         dispatch(setUserLikes(newLikedByUser));
-        console.log(newLikedByUser);
+        // console.log(newLikedByUser);
       }
     }
   }, [photoData, dispatch]);

@@ -13,7 +13,7 @@ export const Header = () => {
     <header className={s.header}>
       <Container>
         <div className={s.headerWrapper}>
-          <button onClick={goBack}>
+          <button className={s.button} onClick={goBack}>
             <ArrowBack className={s.svg} width={40} height={40} />
           </button>
           <Link className={s.name} to="/">React Study Project</Link>

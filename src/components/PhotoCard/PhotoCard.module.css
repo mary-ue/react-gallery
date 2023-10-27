@@ -16,6 +16,11 @@
 .photoCardImage {
   width: 100%;
   height: auto;
+  min-height: 118px;
+  background-image: url('../../assets/Spinner.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
   display: block;
   border-radius: 8px 8px 0 0;
 }
@@ -28,6 +33,9 @@
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .photoCardInfo {
